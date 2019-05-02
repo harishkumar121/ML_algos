@@ -14,14 +14,6 @@ data = pd.read_csv('diabetes.csv')
 data.tail()
 
 
-# In[68]:
-
-#labeling the data
-
-EB = data[data['Outcome'].isin([0])]
-DG = data[data['Outcome'].isin([1])]
-
-
 
 # sigmoid function
 
@@ -114,29 +106,10 @@ for x in range(len(predictions)):
 
 
 
-# reading test data set
-#test_data = pd.read_csv('/home/neureol/Documents/EB_DG_work/Data/test_set.csv',header=None)
-#test_data.insert(0, 'Ones', 1)
-#cols = test_data.shape[1]  
-#test = test_data.iloc[:,0:cols] 
-#test = np.array(test.values)
-
-
-# prediction on test dataset
-#test_predictions = predict(theta_min, test) 
 
 
 
 
-
-#i=[]
-#for x in range(len(test_predictions)):
-#    if (test_predictions[x]==1):
-#        i.append(test_predictions[x])
-# print len(i)
-
-
-# In[110]:
 '''
 # import matplotlib.pyplot as plt
 # import numpy as np
@@ -165,12 +138,10 @@ from sklearn import metrics
 from sklearn.metrics import roc_curve, auc
 fpr, tpr, thresholds = metrics.roc_curve(y,predictions)
 
-
 #training set accuracy
 training_set_auccuracy = auc(fpr, tpr)
 
-print training_set_auccuracy
-
+print(training_set_auccuracy)
 
 plt.plot(fpr, tpr, color='darkorange', label='ROC curve ' % training_set_auccuracy)
 plt.plot([0, 1], [0, 1], color='navy', linestyle='--')
@@ -182,8 +153,10 @@ plt.title('Receiver operating characteristic example')
 plt.legend(loc="lower right")
 plt.show()
 
+
+
 # reading lables for test
-#labels = pd.read_csv('/home/neureol/Documents/EB_DG_work/Data/labels.csv',header=None)
+#labels = pd.read_csv('labels.csv',header=None)
 
 #test_labels = labels.iloc[:,0]
 #test_labels = np.asarray(test_labels)
