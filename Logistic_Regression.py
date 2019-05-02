@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 
 #reading the data set
-data = pd.read_csv('/home/neureol/mytest/diabetes.csv')
+data = pd.read_csv('diabetes.csv')
 data.tail()
 
 
