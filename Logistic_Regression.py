@@ -20,15 +20,6 @@ data.tail()
 def sigmoid(z):  
     return 1 / (1 + np.exp(-z))
 
-'''
-# fig, ax = plt.subplots(figsize=(12,8))
-# ax.scatter(EB['R_freq'], EB['Y_freq'], c='b', marker='o', label='EB')
-# ax.scatter(DG['R_freq'], EB['Y_freq'],  c='r', marker='x', label='DG')
-# ax.set_ylim(0.0000,0.00006)
-# ax.set_xlim(-0.0004,0.0150)
-# # ax.set_xticks(np.arange(-0.0004,0.0150,0.001))
-# ax.legend()
-'''
 
 # cost function
 def cost(theta, X, y):
@@ -38,7 +29,6 @@ def cost(theta, X, y):
     first = np.multiply(-y, np.log(sigmoid(X * theta.T)))
     second = np.multiply((1 - y), np.log(1 - sigmoid(X * theta.T)))
     return np.sum(first - second) / (len(X))
-
 
 
 data.insert(0, 'Ones', 1)
@@ -51,6 +41,7 @@ theta = np.zeros(9)
 
 
 # In[75]:
+
 
 #gradient descent to minimize the cost
 def gradient(theta, X, y):  
@@ -105,11 +96,6 @@ for x in range(len(predictions)):
 
 
 
-
-
-
-
-
 '''
 # import matplotlib.pyplot as plt
 # import numpy as np
@@ -132,7 +118,6 @@ for x in range(len(predictions)):
 # auc = np.trapz([y],[x],dx=1.0)
 
 '''
-
 # calculating accuracies
 from sklearn import metrics
 from sklearn.metrics import roc_curve, auc
@@ -140,8 +125,8 @@ fpr, tpr, thresholds = metrics.roc_curve(y,predictions)
 
 #training set accuracy
 training_set_auccuracy = auc(fpr, tpr)
-
 print(training_set_auccuracy)
+
 
 plt.plot(fpr, tpr, color='darkorange', label='ROC curve ' % training_set_auccuracy)
 plt.plot([0, 1], [0, 1], color='navy', linestyle='--')
