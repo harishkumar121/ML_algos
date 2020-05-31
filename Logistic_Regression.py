@@ -10,8 +10,6 @@ from sklearn import metrics
 from sklearn.metrics import roc_curve, auc
 #reading the data set
 data = pd.read_csv('diabetes.csv')
-data.tail()
-
 
 
 # sigmoid function
@@ -34,7 +32,7 @@ def predict(theta, X):
     probability = sigmoid(X* theta.T)
     # for x in probability:
     #     probs.append(x)
-    return [1 if x > 0.27 else 0 for x in probability]
+    return [1 if x > 0.5 else 0 for x in probability]
 
 
 #gradient descent to minimize the cost
