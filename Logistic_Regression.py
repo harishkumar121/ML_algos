@@ -82,24 +82,6 @@ for x in range(len(predictions)):
         i.append(predictions[x])
 # print (len(i))
 
-'''
-# import matplotlib.pyplot as plt
-# import numpy as np
-
-# fpr = 0.05
-# tpr = 0.95
-# # This is the ROC curve
-# fig, ax = plt.subplots(figsize=(12,8))
-# ax.legend()
-# ax.plot(fpr,tpr,  c='r', marker='x', label='DG')
-# ax.set_xlim(0.0,1.0)
-# ax.set_ylim(0.0,1.1)
-
-# x=np.asarray(x)
-# y=np.asarray(y)
-# auc = np.trapz([y],[x],dx=1.0)
-
-'''
 # calculating accuracies
 fpr, tpr, thresholds = metrics.roc_curve(y,predictions)
 #training set accuracy
@@ -134,3 +116,18 @@ plt.show()
 #test_set_auccuracy = auc(fpr1, tpr1)
 #print test_set_auccuracy
 
+# import matplotlib.pyplot as plt
+# import numpy as np
+
+# fpr = 0.05
+# tpr = 0.95
+# # This is the ROC curve
+# fig, ax = plt.subplots(figsize=(12,8))
+# ax.legend()
+# ax.plot(fpr,tpr,  c='r', marker='x', label='DG')
+# ax.set_xlim(0.0,1.0)
+# ax.set_ylim(0.0,1.1)
+
+# x=np.asarray(x)
+# y=np.asarray(y)
+# auc = np.trapz([y],[x],dx=1.0)
