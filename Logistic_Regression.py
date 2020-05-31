@@ -5,10 +5,9 @@
 import numpy as np  
 import pandas as pd  
 import matplotlib.pyplot as plt  
-
-
-
-
+import scipy.optimize as opt  
+from sklearn import metrics
+from sklearn.metrics import roc_curve, auc
 #reading the data set
 data = pd.read_csv('diabetes.csv')
 data.tail()
@@ -31,16 +30,11 @@ def cost(theta, X, y):
     return np.sum(first - second) / (len(X))
 
 
-data.insert(0, 'Ones', 1)
-cols = data.shape[1]  
-X = data.iloc[:,0:cols-1] 
-y = data.iloc[:,cols-1:cols]
-X = np.array(X.values)  
-y = np.array(y.values)  
-theta = np.zeros(9)
-
-
-# In[75]:
+def predict(theta, X):  
+    probability = sigmoid(X* theta.T)
+    # for x in probability:
+    #     probs.append(x)
+    return [1 if x > 0.27 else 0 for x in probability]
 
 
 #gradient descent to minimize the cost
@@ -62,8 +56,14 @@ def gradient(theta, X, y):
     
     return grad
 
+data.insert(0, 'Ones', 1)
+cols = data.shape[1]  
+X = data.iloc[:,0:cols-1] 
+y = data.iloc[:,cols-1:cols]
+X = np.array(X.values)  
+y = np.array(y.values)  
+theta = np.zeros(9)
 
-import scipy.optimize as opt  
 result = opt.fmin_tnc(func=cost, x0=theta, fprime=gradient, args=(X, y))  
 #print cost(result[0], X, y)
 
@@ -72,29 +72,15 @@ result = opt.fmin_tnc(func=cost, x0=theta, fprime=gradient, args=(X, y))
 #print b
 # probs = []
 
-def predict(theta, X):  
-    probability = sigmoid(X* theta.T)
-    # for x in probability:
-    #     probs.append(x)
-    return [1 if x > 0.27 else 0 for x in probability]
-
-
-
-
 theta_min = np.matrix(result[0])
 test=[]
 predictions = predict(theta_min, X)
-
-print theta_min
-
 
 i=[]
 for x in range(len(predictions)):
     if (predictions[x]==1):
         i.append(predictions[x])
 # print (len(i))
-
-
 
 '''
 # import matplotlib.pyplot as plt
@@ -109,24 +95,16 @@ for x in range(len(predictions)):
 # ax.set_xlim(0.0,1.0)
 # ax.set_ylim(0.0,1.1)
 
-
-# In[111]:
-
-
 # x=np.asarray(x)
 # y=np.asarray(y)
 # auc = np.trapz([y],[x],dx=1.0)
 
 '''
 # calculating accuracies
-from sklearn import metrics
-from sklearn.metrics import roc_curve, auc
 fpr, tpr, thresholds = metrics.roc_curve(y,predictions)
-
 #training set accuracy
 training_set_auccuracy = auc(fpr, tpr)
 print(training_set_auccuracy)
-
 
 plt.plot(fpr, tpr, color='darkorange', label='ROC curve ' % training_set_auccuracy)
 plt.plot([0, 1], [0, 1], color='navy', linestyle='--')
